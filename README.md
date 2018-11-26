@@ -4,4 +4,4 @@
 2) npm i
 
 ### HW1
-- [hw1](https://github.com/andrIvash/node-course/tree/hw1)
+- [hw1](https://github.com/andrIvash/node-mentoring/tree/hw1)

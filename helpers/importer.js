@@ -1,11 +1,25 @@
+/**
+ * Importer transforms csv file to json
+ * @path {String} path to file
+ */
+
 import csv from 'csvtojson';
 import fs from 'fs';
 
 export default class Importer {
+  /**
+   * Asyncronous transform
+   * @path {String} path to file
+   * @return {Promise}
+   */
   import (path) {
     return csv().fromFile(path);
   }
-
+  /**
+   * Synchronous transform
+   * @path {String} path to file
+   * @return {JSON}
+   */
   importSync (path) {
     const contents = fs.readFileSync(path, 'utf8');
     const result = [];

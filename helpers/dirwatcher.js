@@ -10,14 +10,15 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import util from 'util';
+import EventEmitter from 'events';
 
 fs.readDirAsync = util.promisify(fs.readdir);
 fs.statAsync = util.promisify(fs.stat);
 fs.readFileAsync = util.promisify(fs.readFile);
 
-export default class DirWatcher {
+export default class DirWatcher extends EventEmitter {
   constructor () {
-    console.log('DirWatcher module');
+    super();
     this.files = {};
     this.currentFileNames = [];
     this.dir = null;
@@ -25,7 +26,7 @@ export default class DirWatcher {
 
   watch (dir, delay) {
     this.dir = dir;
-    console.log('')
+    this.emit('update');
     setInterval(() => {
       this.scanDirectory(this.dir)
         .then(res => {
@@ -104,6 +105,7 @@ export default class DirWatcher {
   addFile (path) {
     return fs.readFileAsync(path).then(res => {
       this.files[path] = this.getSha1(res.toString());
+      this.emit('changed​', path);
       console.log('new', path);
       return path;
     });
@@ -111,6 +113,7 @@ export default class DirWatcher {
 
   changeFile (path, newHash) {
     this.files[path] = newHash;
+    this.emit('changed​', path);
     console.log('changed​', path);
     return Promise.resolve();
   }

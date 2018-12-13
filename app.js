@@ -12,11 +12,11 @@ const dirWatcher = new DirWatcher();
 const importer = new Importer();
 
 dirWatcher.on('changed​', (path) => {
-  // importer.import('./' + path)
-  //   .then(res => {
-  //     console.log(res);
-  //   });
-  console.log(importer.importSync(path));
+  importer.import('./' + path)
+    .then(res => {
+      console.log(res);
+    });
+  // console.log(importer.importSync(path));
 });
 
 dirWatcher.watch('data', 6000);

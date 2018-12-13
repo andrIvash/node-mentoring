@@ -27,20 +27,12 @@ export default class DirWatcher extends EventEmitter {
   watch (dir, delay) {
     this.dir = dir;
     this.emit('update');
-    setInterval(() => {
-      this.scanDirectory(this.dir)
-        .then(res => {
-          this.currentFileNames = res;
-        })
-        .then(() => {
-          return this.checkDeletion();
-        })
-        .then(() => {
-          return this.compare();
-        })
-        .then(() => {
-        })
-        .catch(err => console.log(err));
+    setInterval(async () => {
+      try {
+        this.currentFileNames = await this.scanDirectory(this.dir);
+        this.checkDeletion();
+        await this.compare();
+      } catch (err) { console.log(err); }
     }, delay);
   }
 
@@ -58,7 +50,7 @@ export default class DirWatcher extends EventEmitter {
       }));
     })
       .then(results => {
-        return Array.prototype.concat.apply([], results);;
+        return Array.prototype.concat.apply([], results);
       })
       .catch(err => {
         console.error(err);
@@ -67,39 +59,28 @@ export default class DirWatcher extends EventEmitter {
 
   compare () {
     const fileKeys = Object.keys(this.files);
-    if (fileKeys.length === 0) {
-      return Promise.all(this.currentFileNames.map(path => {
+    return Promise.all(this.currentFileNames.map(path => {
+      if (!fileKeys.includes(path)) {
         return this.addFile(path);
-      }));
-    } else {
-      return Promise.all(this.currentFileNames.map(path => {
-        if (!fileKeys.includes(path)) {
-          return this.addFile(path);
-        } else {
-          return fs.readFileAsync(path).then((res) => {
-            const newSha1 = this.getSha1(res.toString());
-            if (this.files[path] !== newSha1) {
-              return this.changeFile(path, newSha1);
-            } else {
-              return Promise.resolve();
-            }
-          });
-        }
-      }));
-    }
+      } else {
+        return fs.readFileAsync(path).then((res) => {
+          const newSha1 = this.getSha1(res.toString());
+          if (this.files[path] !== newSha1) {
+            this.changeFile(path, newSha1);
+          }
+          return Promise.resolve();
+        });
+      }
+    }));
   }
 
   checkDeletion () {
     const fileKeys = Object.keys(this.files);
-    return Promise.all(
-      fileKeys.map(key => {
-        if (!this.currentFileNames.includes(key)) {
-          this.deleteFile(key);
-        } else {
-          return Promise.resolve();
-        }
-      })
-    );
+    fileKeys.map(key => {
+      if (!this.currentFileNames.includes(key)) {
+        this.deleteFile(key);
+      }
+    });
   }
 
   addFile (path) {
@@ -115,13 +96,11 @@ export default class DirWatcher extends EventEmitter {
     this.files[path] = newHash;
     this.emit('changed​', path);
     console.log('changed​', path);
-    return Promise.resolve();
   }
 
   deleteFile (key) {
     delete this.files[key];
     console.log('delete', key);
-    return Promise.resolve();
   }
 
   getSha1 (string) {

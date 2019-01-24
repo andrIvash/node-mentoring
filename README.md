@@ -5,8 +5,10 @@
 
 #### HW1
 - [hw1](https://github.com/andrIvash/node-mentoring/tree/hw1)
+
 #### HW2
 - [hw2](https://github.com/andrIvash/node-mentoring/tree/hw2)
+
 #### HW3
 - [hw3](https://github.com/andrIvash/node-mentoring/tree/hw3)
     ```

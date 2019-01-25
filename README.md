@@ -17,4 +17,12 @@
     node ./utils/streams.js -a convertToFile -f ./data/1.csv
     node ./utils/streams.js -a cssBundler -p ./data/css
     ```
-
+#### hW4
+- [hw4](https://github.com/andrIvash/node-mentoring/tree/hw4)
+    ```
+    node run text-server
+    node run json-server
+    node run html-server
+    node run echo-server
+        //  curl -d "hello world" -X POST http://localhost:3000 
+    ```  

@@ -9,6 +9,7 @@
     "html-server": "nodemon --exec babel-node ./http-servers/html-server.js",
     "json-server": "nodemon --exec babel-node ./http-servers/json-server.js",
     "text-server": "nodemon --exec babel-node ./http-servers/plain-text-server.js",
+    "server": "nodemon --exec babel-node ./express/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -35,6 +36,9 @@
   "dependencies": {
     "commander": "^2.19.0",
     "csvtojson": "^2.0.8",
+    "express": "^4.16.4",
+    "lowdb": "^1.0.0",
+    "nanoid": "^2.0.1",
     "nconf": "^0.10.0",
     "stream-concat": "^0.3.0",
     "through2": "^3.0.0"

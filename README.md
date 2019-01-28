@@ -17,4 +17,36 @@
     node ./utils/streams.js -a convertToFile -f ./data/1.csv
     node ./utils/streams.js -a cssBundler -p ./data/css
     ```
-
+#### hW4
+- [hw4](https://github.com/andrIvash/node-mentoring/tree/hw4)
+    ```
+    node run text-server
+    node run json-server
+    node run html-server
+    node run echo-server
+        //  curl -d "hello world" -X POST http://localhost:3000 
+    node run server 
+        // curl -v --cookie "USER_TOKEN=Yes;COMMON=No" http://localhost:3000/\?id\=3\&filter\='common'
+            
+    ``` 
+    ###### API request
+    - get user list
+    ```
+    curl http://localhost:3000/api/users
+    ```
+    - get products list
+    ```
+    curl http://localhost:3000/api/products
+    ```
+    - get single product by id
+    ```
+    curl http://localhost:3000/api/products/1
+    ```
+    - get product reviews
+    ```
+    curl http://localhost:3000/api/products/1/reviews
+    ```    
+    - add product
+    ```
+    curl -d '{"name":"NewOne","brand":"XBB","price":"21.99"}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/products
+    ``` 

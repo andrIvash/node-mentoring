@@ -2,11 +2,11 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import lowdb from 'lowdb';
-import config from '../config';
+import config from '../../config';
 
 const router = express.Router();
 const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync(path.join(__dirname, '../db.json'));
+const adapter = new FileSync(path.join(__dirname, '../../db.json'));
 const db = lowdb(adapter);
 
 router.post('/', (req, res) => {

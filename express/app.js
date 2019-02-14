@@ -1,16 +1,23 @@
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
+import path from 'path';
 import cookieParserMiddelware from './middlewares/cookieParserMiddelware';
 import queryParserMiddleware from './middlewares/queryParserMiddleware';
 import router from './routes';
-
 import Auth from './services/auth_passport';
+import dotenv from 'dotenv';
+
+dotenv.config();
 const auth = new Auth();
 auth.initialize();
 
 // express
 const app = express();
+app.use(express.static(path.join(__dirname, '/src/static')));
+app.set('views', path.join(__dirname, '/src/template'));
+app.set('view engine', 'pug');
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -33,8 +40,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// add base route
-app.use('/api', router);
+// add base routes
+app.use(router);
 
 // main route handler
 app.use('*', (req, res) => {

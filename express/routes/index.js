@@ -1,16 +1,17 @@
 import express from 'express';
-import products from './products';
-import users from './users';
-import auth from './auth';
-import passportAuth from './passportAuth';
-import verifyToken from '../middlewares/verifyToken';
+import apiRoutes from './api';
 import verifyPassport from '../middlewares/verifyPassport';
 
 const router = express.Router();
 
-router.use('/products', verifyPassport, products);
-router.use('/users', verifyToken, users);
-router.use('/auth', auth);
-router.use('/auth2', passportAuth);
+router.use('/api', apiRoutes);
+
+router.get('/', (req, res) => {
+  res.render('index', { });
+});
+
+router.get('/private', verifyPassport, (req, res) => {
+  res.render('private', { });
+});
 
 export default router;

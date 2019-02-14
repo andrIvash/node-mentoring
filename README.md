@@ -61,3 +61,9 @@
     copy cookie from response and paste it to XXX
     curl -H 'cookie: connect.sid=XXX' http://localhost:3000/api/products
   ```    
+  ##### Login via Web interface
+  ```
+    rename .env_test file to .env in root directory and add proper credentials
+    node run server
+    open http://localhost:3000 in browser
+  ```  

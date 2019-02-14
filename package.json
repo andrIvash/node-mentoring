@@ -37,6 +37,7 @@
   "dependencies": {
     "commander": "^2.19.0",
     "csvtojson": "^2.0.8",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "install": "^0.12.2",
@@ -46,7 +47,11 @@
     "nconf": "^0.10.0",
     "npm": "^6.7.0",
     "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "pug": "^2.0.3",
     "stream-concat": "^0.3.0",
     "through2": "^3.0.0"
   }

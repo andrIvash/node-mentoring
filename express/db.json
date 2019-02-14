@@ -2,6 +2,7 @@
   "users": [
     {
       "id": 1001,
+      "username": "al-x",
       "firstName": "Alan",
       "lastName": "Johnson",
       "phone": "1234567890",
@@ -10,6 +11,7 @@
     },
     {
       "id": 1002,
+      "username": "alis_house",
       "firstName": "Allison",
       "lastName": "House",
       "phone": "0987654321",

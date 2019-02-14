@@ -1,7 +1,13 @@
 import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
 import cookieParserMiddelware from './middlewares/cookieParserMiddelware';
 import queryParserMiddleware from './middlewares/queryParserMiddleware';
 import router from './routes';
+
+import Auth from './services/auth_passport';
+const auth = new Auth();
+auth.initialize();
 
 // express
 const app = express();
@@ -13,6 +19,19 @@ app.use(cookieParserMiddelware);
 
 // query parser middleware
 app.use(queryParserMiddleware);
+
+// passport
+app.use(session({
+  secret: 'cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 60 * 60 * 1000
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // add base route
 app.use('/api', router);

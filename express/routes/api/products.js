@@ -7,7 +7,7 @@ const router = express.Router();
 
 // local database
 const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync(path.join(__dirname, '../db.json'));
+const adapter = new FileSync(path.join(__dirname, '../../db.json'));
 const db = lowdb(adapter);
 
 router.get('/', (req, res) => {

@@ -1,10 +1,23 @@
 import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
+import path from 'path';
 import cookieParserMiddelware from './middlewares/cookieParserMiddelware';
 import queryParserMiddleware from './middlewares/queryParserMiddleware';
 import router from './routes';
+import Auth from './services/auth_passport';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const auth = new Auth();
+auth.initialize();
 
 // express
 const app = express();
+app.use(express.static(path.join(__dirname, '/src/static')));
+app.set('views', path.join(__dirname, '/src/template'));
+app.set('view engine', 'pug');
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -14,8 +27,21 @@ app.use(cookieParserMiddelware);
 // query parser middleware
 app.use(queryParserMiddleware);
 
-// add base route
-app.use('/api', router);
+// passport
+app.use(session({
+  secret: 'cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 60 * 60 * 1000
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// add base routes
+app.use(router);
 
 // main route handler
 app.use('*', (req, res) => {

@@ -1,0 +1,29 @@
+h1 Main Page
+p
+    a(href="/private") Secret Page
+
+h4 Authorization by local strategy
+form(id="form")
+    fieldset.fieldset
+        legend Personalia:
+        label(class="label" for="username") Name
+        input(class="input" type="text" name="username" id="username")
+        br
+        label(class="label" for="password") Password
+        input(class="input" type="text" name="password" id="password")
+        br
+    button(class="btn-submit" type="submit") Send
+    button(class="btn-reset" type="reset") Reset
+
+div.status
+
+
+button.del(type="button") Delete Cookie
+
+h4 Authorization by
+p
+    a.link(href="/api/auth2/facebook") Facebook
+    br
+    a.link(href="/api/auth2/twitter") Twitter
+    br
+    a.link(href="/api/auth2/google") Google

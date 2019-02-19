@@ -1,6 +1,8 @@
 {
   "users": [
     {
+      "id": 1001,
+      "username": "al-x",
       "firstName": "Alan",
       "lastName": "Johnson",
       "phone": "1234567890",
@@ -8,6 +10,8 @@
       "memberSince": "Mar 25, 2011"
     },
     {
+      "id": 1002,
+      "username": "alis_house",
       "firstName": "Allison",
       "lastName": "House",
       "phone": "0987654321",
@@ -15,6 +19,7 @@
       "memberSince": "Jan 13, 2011"
     },
     {
+      "id": 1003,
       "firstName": "Nick",
       "lastName": "Pettit",
       "phone": "9836592272",
@@ -22,6 +27,7 @@
       "memberSince": "Apr 9, 2009"
     },
     {
+      "id": 1004,
       "firstName": "Jim",
       "lastName": "Hoskins",
       "phone": "7284927150",
@@ -29,6 +35,7 @@
       "memberSince": "May 21, 2010"
     },
     {
+      "id": 1005,
       "firstName": "Ryan",
       "lastName": "Carson",
       "phone": "8263729224",

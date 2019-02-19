@@ -50,3 +50,20 @@
     ```
     curl -d '{"name":"NewOne","brand":"XBB","price":"21.99"}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/products
     ``` 
+
+#hw5
+- [hw5](https://github.com/andrIvash/node-mentoring/tree/hw5)
+  ##### API request
+  - login (passport.js local strategy) then get data
+  ```
+    node run server
+    curl POST http://localhost:3000/api/auth2 -d 'username=username' -d 'password=password' -v
+    copy cookie from response and paste it to XXX
+    curl -H 'cookie: connect.sid=XXX' http://localhost:3000/api/products
+  ```    
+  ##### Login via Web interface
+  ```
+    rename .env_test file to .env in root directory and add proper credentials
+    node run server
+    open http://localhost:3000 in browser
+  ```  

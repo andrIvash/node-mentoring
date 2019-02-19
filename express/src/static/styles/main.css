@@ -1,0 +1,31 @@
+#form {
+    width: 350px;
+    margin-bottom: 10px;
+}
+
+.label {
+    margin-right: 10px;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+.fieldset {
+    margin-bottom: 10px;
+}
+
+.btn-submit {
+    margin-right: 10px;
+    background: green;
+}
+
+.btn-reset {
+    background: slategray;
+}
+
+.status {
+    min-height: 40px;
+    color: red;
+}
+

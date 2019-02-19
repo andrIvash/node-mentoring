@@ -1,0 +1,77 @@
+[
+  {
+    "model": "User",
+    "data": {
+      "id": 1001,
+      "username": "al-x",
+      "password": "$2a$08$9LzmYrONl9wIq3KtsiyOlOruTwOW1UJLESICBcY4Ar.oY9uBR6UIO",
+      "firstName": "Alan",
+      "lastName": "Johnson",
+      "phone": "1234567890",
+      "email": "alan@test.com",
+      "memberSince": "Mar 25, 2011"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 1002,
+      "username": "alis_house",
+      "password": "$2a$08$91WtWeP/yFthEmMEMb..LODJhkJhRCJqvsn8GjUFDyK43oBoXtODK",
+      "firstName": "Allison",
+      "lastName": "House",
+      "phone": "0987654321",
+      "email": "allison@test.com",
+      "memberSince": "Jan 13, 2011"
+    }
+  },
+  {
+    "model": "Product",
+    "data": {
+      "id": 1,
+      "name": "Supreme T-Shirt",
+      "brand": "Supreme",
+      "price": 99.99,
+      "color": "blue",
+      "size": "XL"
+    }
+  },
+  {
+    "model": "Product",
+    "data": {
+      "id": 2,
+      "name": "Darkest T-Shirt",
+      "brand": "ZZ",
+      "price": 21.99,
+      "color": "black",
+      "size": "X"
+    }
+  },
+  {
+    "model": "Review",
+    "data": {
+      "id": 1,
+      "product_id": 1,
+      "author": "John Z",
+      "text": "Good staff"
+    }
+  },
+  {
+    "model": "Review",
+    "data": {
+      "id": 2,
+      "product_id": 1,
+      "author": "Bill G",
+      "text": "Awesome goods"
+    }
+  },
+  {
+    "model": "Review",
+    "data": {
+      "id": 3,
+      "product_id": 2,
+      "author": "Andrew L",
+      "text": "Not bad"
+    }
+  }
+]

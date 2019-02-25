@@ -6,6 +6,7 @@ import {Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import config from '../config';
 import path from 'path';
 import lowdb from 'lowdb';
+import pdb from '../models';
 
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync(path.join(__dirname, '../db.json'));
@@ -19,12 +20,29 @@ class Authentication {
 
   localAuthentication = (username, password, done) => {
     console.log('[PassportJs] Authenticating using local strategy.');
-    if (config().get('username') === username && config().get('password') === password) {
-      const currentUser = db.get('users').find({ id: 1001 }).value();
-      return done(null, currentUser);
-    } else {
-      return done(null, false);
-    }
+
+    pdb.User.findOne({
+      where: {
+        username: username
+      }
+    }).then(user => {
+      if (!user) {
+        return done(null, false, {
+          message: 'Login does not exist.'
+        });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, {
+          message: 'Incorrect password.'
+        });
+      }
+      return done(null, user.get());
+    }).catch(err => {
+      console.log('Error:', err);
+      return done(null, false, {
+        message: 'Something went wrong with your Signin.'
+      });
+    });
   };
 
   facebookAuthentication = (accessToken, refreshToken, profile, done) => {

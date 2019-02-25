@@ -2,15 +2,25 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import path from 'path';
+import sequelize_fixtures from 'sequelize-fixtures';
 import cookieParserMiddelware from './middlewares/cookieParserMiddelware';
 import queryParserMiddleware from './middlewares/queryParserMiddleware';
 import router from './routes';
 import Auth from './services/auth_passport';
 import dotenv from 'dotenv';
+import models from './models';
 
 dotenv.config();
 const auth = new Auth();
 auth.initialize();
+
+// DB
+models.sequelize.sync().then(async () => {
+  // await sequelize_fixtures.loadFile('./express/test_data.json', models);
+  console.log('Nice! Database looks fine');
+}).catch(err => {
+  console.log(err, 'Something went wrong with the Database!');
+});
 
 // express
 const app = express();

@@ -1,32 +1,37 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import path from 'path';
-import lowdb from 'lowdb';
 import config from '../../config';
+import pdb from '../../models';
 
 const router = express.Router();
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync(path.join(__dirname, '../../db.json'));
-const db = lowdb(adapter);
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
-  if (config().get('username') !== username || config().get('password') !== password) {
-    res.status(404).json({ status: 404, message: 'Not found' });
-  } else {
-    const currentUser = db.get('users').find({ id: 1001 }).value();
-    const token = jwt.sign({ id: { currentUser } }, config().get('secret'), {
+  pdb.User.findOne({
+    where: {
+      username: username
+    }
+  }).then(user => {
+    if (!user) {
+      return res.status(404).json({ status: 404, message: 'Not found' });
+    }
+    if (!user.validPassword(password)) {
+      return res.status(404).json({ status: 401, message: 'Incorrect password' });
+    }
+    const token = jwt.sign({ id: { user } }, config().get('secret'), {
       expiresIn: 86400 // expires in 24 hours
     });
     res.json({
       code: 200,
       message: 'OK',
       data: {
-        user: currentUser
+        user
       },
       token: token
     });
-  }
+  }).catch(err => {
+    console.log('Error:', err);
+  });
 });
 
 export default router;

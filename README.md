@@ -67,3 +67,16 @@
     node run server
     open http://localhost:3000 in browser
   ```  
+#hw6
+- [hw6](https://github.com/andrIvash/node-mentoring/tree/hw6)
+    ```
+     npm i
+     npm i -g sequelize-cli
+     download and run postgresdb docker image
+     sequelize db:migrate
+     sequelize db:seed:all
+     npm run server
+     curl POST http://localhost:3000/api/auth -d 'username=al-x' -d 'password=password' -v
+     copy token from response and paste it to XXX
+     curl -H 'x-access-token: XXX' http://localhost:3000/api/users  
+    ```  

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1001,
+    "username": "al-x",
+    "password": "$2a$08$9LzmYrONl9wIq3KtsiyOlOruTwOW1UJLESICBcY4Ar.oY9uBR6UIO",
+    "firstName": "Alan",
+    "lastName": "Johnson",
+    "phone": "321-233-3433",
+    "email": "alan@test.com",
+    "memberSince": "Mar 25, 2011"
+  },
+  {
+    "id": 1002,
+    "username": "alis_house",
+    "password": "$2a$08$91WtWeP/yFthEmMEMb..LODJhkJhRCJqvsn8GjUFDyK43oBoXtODK",
+    "firstName": "Allison",
+    "lastName": "House",
+    "phone": "098-325-2323",
+    "email": "allison@test.com",
+    "memberSince": "Jan 13, 2011"
+  }
+]

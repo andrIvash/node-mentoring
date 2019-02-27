@@ -8,6 +8,8 @@
     "echo-server": "nodemon --exec babel-node ./http-servers/echo-server.js",
     "html-server": "nodemon --exec babel-node ./http-servers/html-server.js",
     "json-server": "nodemon --exec babel-node ./http-servers/json-server.js",
+    "mongo-server": "nodemon --exec babel-node ./http-servers/mongo-server.js",
+    "mongoose-server": "nodemon --exec babel-node ./http-servers/mongoose-server.js",
     "text-server": "nodemon --exec babel-node ./http-servers/plain-text-server.js",
     "server": "nodemon --exec babel-node ./express/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -44,6 +46,8 @@
     "install": "^0.12.2",
     "jsonwebtoken": "^8.4.0",
     "lowdb": "^1.0.0",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.14",
     "mysql2": "^1.6.5",
     "nanoid": "^2.0.1",
     "nconf": "^0.10.0",

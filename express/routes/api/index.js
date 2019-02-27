@@ -1,21 +1,20 @@
 import express from 'express';
-import products from './products';
-import users from './users';
-import auth from './auth';
-import passportAuth from './passportAuth';
+import mUsers from './m_users';
+import mProducts from './m_products';
+import mAuth from './m_auth';
 import deleteSession from './deleteSession';
 import verifyToken from '../../middlewares/verifyToken';
-import verifyPassport from '../../middlewares/verifyPassport';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
   return res.status(400).json({ status: 400, message: 'Wrong query' });
 });
-router.use('/products', verifyPassport, products);
-router.use('/users', verifyToken, users);
-router.use('/auth', auth);
-router.use('/auth2', passportAuth);
+
 router.use('/del', deleteSession);
+
+router.use('/v2/auth', mAuth);
+router.use('/v2/products', verifyToken, mProducts);
+router.use('/v2/users', verifyToken, mUsers);
 
 export default router;

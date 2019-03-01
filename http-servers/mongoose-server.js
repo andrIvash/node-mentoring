@@ -16,7 +16,6 @@ const server = http.createServer(async (req, res) => {
     const selectedCity = await City.findOne().skip(random);
     res.write(JSON.stringify(selectedCity));
     res.end();
-    mg.disconnect();
   } catch (err) {
     console.log(err);
     res.write(JSON.stringify(err));

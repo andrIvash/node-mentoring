@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import lastModifiedDatePlugin from '../helpers/LastModifiedDatePlugin';
 const Schema = mongoose.Schema;
 
 // Product Schema
@@ -33,7 +34,7 @@ const schema = new Schema({
   color: {
     type: String,
     unique: false,
-    required: true
+    required: false
   },
   size: {
     type: String,
@@ -41,5 +42,7 @@ const schema = new Schema({
     required: true
   }
 });
+
+schema.plugin(lastModifiedDatePlugin);
 
 exports.Product = mongoose.model('Product', schema);

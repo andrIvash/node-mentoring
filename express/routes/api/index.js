@@ -1,6 +1,7 @@
 import express from 'express';
 import mUsers from './m_users';
 import mProducts from './m_products';
+import mCities from './m_cities';
 import mAuth from './m_auth';
 import deleteSession from './deleteSession';
 import verifyToken from '../../middlewares/verifyToken';
@@ -16,5 +17,6 @@ router.use('/del', deleteSession);
 router.use('/v2/auth', mAuth);
 router.use('/v2/products', verifyToken, mProducts);
 router.use('/v2/users', verifyToken, mUsers);
+router.use('/v2/cities', verifyToken, mCities);
 
 export default router;

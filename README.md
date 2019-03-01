@@ -89,12 +89,12 @@
     -  Mongo native driver
      ```
      npm run mongo-server
-     curl POST http://localhost:3000/
+     curl GET http://localhost:3000/
      ```
     -  Mongoose 
     ```
     npm run mongoose-server
-    curl POST http://localhost:3000/
+    curl GET http://localhost:3000/
     ``` 
     - CRUD with Mongoose
     ```

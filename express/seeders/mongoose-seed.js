@@ -28,55 +28,13 @@ class Seeder {
     });
   };
 
-  createCities = () => {
-    console.log('Insert Data');
+  createData = async (modelName, sourceFile) => {
+    console.log('Insert Data', modelName);
     try {
-      const cities = JSON.parse(fs.readFileSync(path.join(__dirname, '../../http-servers/cities-data.json'), 'utf8'));
-      return cities.forEach(async (cityData) => {
-        const city = new this.mongoose.models.City(cityData);
-        await city.save();
-      });
+      const data = JSON.parse(fs.readFileSync(path.join(__dirname, sourceFile), 'utf8'));
+      await this.mongoose.models[modelName].collection.insertMany(data);
     } catch (err) {
       console.log('error in cities data', err);
-    }
-  };
-
-  createProduct = () => {
-    console.log('Insert Product Data');
-    try {
-      const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../test_productData.json'), 'utf8'));
-      return products.forEach(async (productData) => {
-        const product = new this.mongoose.models.Product(productData);
-        await product.save();
-      });
-    } catch (err) {
-      console.log('error in product data', err);
-    }
-  };
-
-  createReviews = () => {
-    console.log('Insert Review Data');
-    try {
-      const reviews = JSON.parse(fs.readFileSync(path.join(__dirname, '../test_reviewData.json'), 'utf8'));
-      return reviews.forEach(async (reviewData) => {
-        const product = new this.mongoose.models.Review(reviewData);
-        await product.save();
-      });
-    } catch (err) {
-      console.log('error in review data', err);
-    }
-  };
-
-  createUser = () => {
-    console.log('Insert User Data');
-    try {
-      const users = JSON.parse(fs.readFileSync(path.join(__dirname, '../test_userData.json'), 'utf8'));
-      return users.forEach(async (userData) => {
-        const user = new this.mongoose.models.User(userData);
-        await user.save();
-      });
-    } catch (err) {
-      console.log('error in user data', err);
     }
   };
 
@@ -85,7 +43,7 @@ class Seeder {
       await this.open();
       await this.dropDatabase();
       await this.requireModels();
-      await this.createCities();
+      await this.createData('City', '../../http-servers/cities-data.json');
     } catch (err) {
       console.log('Close connection', err);
       this.mongoose.disconnect();
@@ -97,9 +55,10 @@ class Seeder {
       await this.open();
       await this.dropDatabase();
       await this.requireModels();
-      await this.createUser();
-      await this.createProduct();
-      await this.createReviews();
+      await this.createData('City', '../../http-servers/cities-data.json');
+      await this.createData('User', '../test_userData.json');
+      await this.createData('Product', '../test_productData.json');
+      await this.createData('Review', '../test_reviewData.json');
     } catch (err) {
       console.log('Close connection', err);
       this.mongoose.disconnect();

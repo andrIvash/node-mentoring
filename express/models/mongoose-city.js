@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import lastModifiedDatePlugin from '../helpers/LastModifiedDatePlugin';
 const Schema = mongoose.Schema;
 
 // City Schema
@@ -23,14 +24,16 @@ const schema = new Schema({
     lat: {
       type: String,
       unique: false,
-      required: true
+      required: false
     },
     long: {
       type: String,
       unique: false,
-      required: true
+      required: false
     }
-  }
+  },
 });
+
+schema.plugin(lastModifiedDatePlugin);
 
 exports.City = mongoose.model('City', schema);

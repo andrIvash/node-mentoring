@@ -19,7 +19,6 @@ try {
       const seeder = new Seeder(mg); // seeding data
       await seeder.seedUserAndProduct();
     }
-    mg.disconnect();
   })();
 } catch (err) {
   console.log(err, 'Something went wrong with the Database!');

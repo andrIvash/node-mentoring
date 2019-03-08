@@ -1,6 +1,7 @@
 import express from 'express';
 import { Product } from '../../models/mongoose-product';
 import { Review } from '../../models/mongoose-review';
+import { mongooseErrorParser } from '../../helpers/MongooseErrorParser';
 
 const router = express.Router();
 
@@ -20,28 +21,28 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const productId = req.params.id;
   try {
-    const selected = await Product.find({ id: productId });
+    const selected = await Product.find({ _id: productId });
     if (!selected) {
       return res.status(404).json({ status: 404, message: 'Product Not found.' });
     }
     res.json(selected);
   } catch (err) {
     console.log('Error:', err);
-    return res.status(500).json({ status: 500, message: 'DB error.' });
+    return res.status(500).json({ status: 500, message: 'DB error while find one.' });
   }
 });
 
 router.delete('/:id', async (req, res) => {
   const productId = req.params.id;
   try {
-    await Product.findOneAndRemove({ id: productId });
+    await Product.findOneAndRemove({ _id: productId });
     return res.status(200).json({
       message: 'Successfully deleted',
       id: productId
     });
   } catch (err) {
     console.log('Error:', err);
-    return res.status(500).json({ status: 500, message: 'DB error.' });
+    return res.status(500).json({ status: 500, message: 'DB error while delete by id.' });
   }
 });
 
@@ -65,36 +66,28 @@ router.post('/', async (req, res) => {
     brand,
     price
   } = req.body;
-  if (!name || !brand || !price) {
-    res.status(404).json({ status: 400, message: 'Missing required parameters' });
-  } else {
-    try {
-      let product = new Product({ name, brand, price });
-      await product.save();
-      res.status(200).json({ status: 200, message: 'Save Successful.' });
-    } catch (err) {
-      console.log('Error:', err);
-      return res.status(500).json({ status: 500, message: 'Save failed' });
-    }
+
+  try {
+    let product = new Product({ name, brand, price });
+    await product.save();
+    res.status(200).json({ status: 200, message: 'Save Successful.' });
+  } catch (err) {
+    return res.status(500).json({ status: 500, error: mongooseErrorParser(err) });
   }
 });
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
+  const productId = req.params.id;
   const { name, brand, price } = req.body;
-  if (!name || !brand || !price) {
-    res.status(404).json({ status: 400, message: 'Missing required parameter - name' });
-  } else {
-    try {
-      await Product.update(
-        { name, brand, price },
-        { name, brand, price },
-        { upsert: true }
-      );
-      res.status(200).json({ status: 200, message: 'Update Successful.' });
-    } catch (err) {
-      console.log('Error:', err);
-      return res.status(500).json({ status: 500, message: 'Update failed' });
-    }
+  try {
+    await Product.findByIdAndUpdate(
+      { _id: productId },
+      { name, brand, price },
+      { upsert: true, runValidators: true }
+    );
+    res.status(200).json({ status: 200, message: 'Update Successful.' });
+  } catch (err) {
+    return res.status(500).json({ status: 500, error: mongooseErrorParser(err) });
   }
 });
 

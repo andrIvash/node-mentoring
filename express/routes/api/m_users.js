@@ -18,14 +18,14 @@ router.get('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
   try {
-    await User.findOneAndRemove({ id: userId });
+    await User.findOneAndRemove({ _id: userId });
     return res.status(200).json({
       message: 'Successfully deleted',
       id: userId
     });
   } catch (err) {
     console.log('Error:', err);
-    return res.status(500).json({ status: 500, message: 'DB error.' });
+    return res.status(500).json({ status: 500, message: 'DB error while delete by id.' });
   }
 });
 

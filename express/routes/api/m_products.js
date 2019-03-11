@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
   const productId = req.params.id;
   try {
     const selected = await Product.find({ _id: productId });
-    if (!selected) {
+    if (!selected || !selected.length) {
       return res.status(404).json({ status: 404, message: 'Product Not found.' });
     }
     res.json(selected);
@@ -35,11 +35,15 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const productId = req.params.id;
   try {
-    await Product.findOneAndRemove({ _id: productId });
-    return res.status(200).json({
-      message: 'Successfully deleted',
-      id: productId
-    });
+    const query = await Product.findOneAndDelete({ _id: productId });
+    if (query) {
+      return res.status(200).json({
+        message: 'Successfully deleted',
+        id: productId
+      });
+    } else {
+      return res.status(404).json({ status: 404, message: 'Not found.' });
+    }
   } catch (err) {
     console.log('Error:', err);
     return res.status(500).json({ status: 500, message: 'DB error while delete by id.' });
@@ -72,7 +76,7 @@ router.post('/', async (req, res) => {
     await product.save();
     res.status(200).json({ status: 200, message: 'Save Successful.' });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: mongooseErrorParser(err) });
+    return res.status(400).json({ status: 400, error: mongooseErrorParser(err) });
   }
 });
 
@@ -80,14 +84,18 @@ router.put('/:id', async (req, res) => {
   const productId = req.params.id;
   const { name, brand, price } = req.body;
   try {
-    await Product.findByIdAndUpdate(
+    const query = await Product.findOneAndUpdate(
       { _id: productId },
       { name, brand, price },
       { upsert: true, runValidators: true }
     );
-    res.status(200).json({ status: 200, message: 'Update Successful.' });
+    if (query) {
+      return res.status(200).json({ status: 200, message: 'Update Successful.' });
+    } else {
+      return res.status(404).json({ status: 404, message: 'Not found.' });
+    }
   } catch (err) {
-    return res.status(500).json({ status: 500, error: mongooseErrorParser(err) });
+    return res.status(400).json({ status: 400, error: mongooseErrorParser(err) });
   }
 });
 

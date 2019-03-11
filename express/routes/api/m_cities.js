@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
   const cityId = req.params.id;
   try {
     const selected = await City.find({ _id: cityId });
-    if (!selected) {
+    if (!selected || !selected.length) {
       return res.status(404).json({ status: 404, message: 'City Not found.' });
     }
     res.json(selected);
@@ -34,11 +34,15 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const cityId = req.params.id;
   try {
-    await City.findOneAndRemove({ _id: cityId });
-    return res.status(200).json({
-      message: 'Successfully deleted',
-      id: cityId
-    });
+    const query = await City.findOneAndDelete({ _id: cityId });
+    if (query) {
+      return res.status(200).json({
+        message: 'Successfully deleted',
+        id: cityId
+      });
+    } else {
+      return res.status(404).json({ status: 404, message: 'Not found.' });
+    }
   } catch (err) {
     console.log('Error:', err);
     return res.status(500).json({ status: 500, message: 'DB error while delete by id.' });
@@ -50,9 +54,9 @@ router.post('/', async (req, res) => {
   try {
     let product = new City({ name, country, capital });
     await product.save();
-    res.status(200).json({ status: 200, message: 'Save Successful.' });
+    return res.status(200).json({ status: 200, message: 'Save Successful.' });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: mongooseErrorParser(err) });
+    return res.status(400).json({ status: 400, error: mongooseErrorParser(err) });
   }
 });
 
@@ -60,14 +64,18 @@ router.put('/:id', async (req, res) => {
   const cityId = req.params.id;
   const { name, country, capital } = req.body;
   try {
-    await City.findByIdAndUpdate(
+    const query = await City.findOneAndUpdate(
       { _id: cityId },
       { name, country, capital },
       { upsert: true, runValidators: true }
     );
-    res.status(200).json({ status: 200, message: 'Update Successful.' });
+    if (query) {
+      return res.status(200).json({ status: 200, message: 'Update Successful.' });
+    } else {
+      return res.status(404).json({ status: 404, message: 'Not found.' });
+    }
   } catch (err) {
-    return res.status(500).json({ status: 500, error: mongooseErrorParser(err) });
+    return res.status(400).json({ status: 400, error: mongooseErrorParser(err) });
   }
 });
 

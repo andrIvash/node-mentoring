@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "product_id": 1,
+    "author": "John Z",
+    "text": "Good staff"
+  },
+  {
+    "id": 2,
+    "product_id": 1,
+    "author": "Bill G",
+    "text": "Awesome goods"
+  },
+  {
+    "id": 3,
+    "product_id": 2,
+    "author": "Andrew L",
+    "text": "Not bad"
+  }
+]

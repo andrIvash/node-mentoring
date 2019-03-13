@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Brest",
+    "country": "Belarus",
+    "capital": "false",
+    "location": {
+      "lat": "52.097621",
+      "long": "23.734050"
+    }
+  },
+  {
+    "id": 2,
+    "name": "New York",
+    "country": "USA",
+    "capital": "false",
+    "location": {
+      "lat": "52.097621",
+      "long": "23.734050"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Bangalor",
+    "country": "India",
+    "capital": "false",
+    "location": {
+      "lat": "52.097621",
+      "long": "23.734050"
+    }
+  },
+  {
+    "id": 4,
+    "name": "London",
+    "country": "UK",
+    "capital": "true",
+    "location": {
+      "lat": "52.097621",
+      "long": "23.734050"
+    }
+  }
+]

@@ -79,4 +79,27 @@
      curl POST http://localhost:3000/api/auth -d 'username=al-x' -d 'password=password' -v
      copy token from response and paste it to XXX
      curl -H 'x-access-token: XXX' http://localhost:3000/api/users  
-    ```  
+    ``` 
+#hw7
+- [hw7](https://github.com/andrIvash/node-mentoring/tree/hw7)
+    ```
+     npm i
+     download and run mongodb docker image
+    ```
+    -  Mongo native driver
+     ```
+     npm run mongo-server
+     curl GET http://localhost:3000/
+     ```
+    -  Mongoose 
+    ```
+    npm run mongoose-server
+    curl GET http://localhost:3000/
+    ``` 
+    - CRUD with Mongoose
+    ```
+     npm run server
+     curl POST http://localhost:3000/api/v2/auth -d 'username=al-x' -d 'password=password' -v
+     copy token from response and paste it to XXX
+     curl -H 'x-access-token: XXX' http://localhost:3000/api/v2/products  
+    ```      

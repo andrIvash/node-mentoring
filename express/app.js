@@ -1,26 +1,28 @@
 import express from 'express';
-import session from 'express-session';
-import passport from 'passport';
 import path from 'path';
-import sequelize_fixtures from 'sequelize-fixtures';
 import cookieParserMiddelware from './middlewares/cookieParserMiddelware';
 import queryParserMiddleware from './middlewares/queryParserMiddleware';
 import router from './routes';
-import Auth from './services/auth_passport';
 import dotenv from 'dotenv';
-import models from './models';
+import mongoose from 'mongoose';
+import { User } from './models/mongoose-user';
+import Seeder from './seeders/mongoose-seed';
 
 dotenv.config();
-const auth = new Auth();
-auth.initialize();
 
-// DB
-models.sequelize.sync().then(async () => {
-  // await sequelize_fixtures.loadFile('./express/test_data.json', models);
-  console.log('Nice! Database looks fine');
-}).catch(err => {
+// DB Mongoose
+try {
+  (async () => {
+    const mg = await mongoose.connect(`mongodb://localhost:27017/local`);
+    const userCount = await User.countDocuments();
+    if (userCount === 0) {
+      const seeder = new Seeder(mg); // seeding data
+      await seeder.seedUserAndProduct();
+    }
+  })();
+} catch (err) {
   console.log(err, 'Something went wrong with the Database!');
-});
+}
 
 // express
 const app = express();
@@ -36,19 +38,6 @@ app.use(cookieParserMiddelware);
 
 // query parser middleware
 app.use(queryParserMiddleware);
-
-// passport
-app.use(session({
-  secret: 'cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    maxAge: 60 * 60 * 1000
-  }
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // add base routes
 app.use(router);

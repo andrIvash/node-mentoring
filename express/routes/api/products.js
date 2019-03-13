@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
         res.send(product);
       })
       .catch((err) => {
-        console.log('***There was an error creating a Product', JSON.stringify(product))
+        console.log('***There was an error creating a Product');
         return res.status(400).send(err);
       });
   }

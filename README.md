@@ -103,3 +103,15 @@
      copy token from response and paste it to XXX
      curl -H 'x-access-token: XXX' http://localhost:3000/api/v2/products  
     ```      
+#hw8 Swagger
+- [hw8](https://github.com/andrIvash/node-mentoring/tree/hw8)
+    - CRUD
+        ```
+         npm run swagger:start
+         curl http://localhost:3000/products  
+         ```
+    - Edit swagger.yaml file
+        ```
+        npm run swagger:edit
+
+        ```        

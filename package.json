@@ -10,6 +10,8 @@
     "json-server": "nodemon --exec babel-node ./http-servers/json-server.js",
     "mongo-server": "nodemon --exec babel-node ./http-servers/mongo-server.js",
     "mongoose-server": "nodemon --exec babel-node ./http-servers/mongoose-server.js",
+    "swagger:start": "nodemon --exec babel-node ./sn-express/app.js",
+    "swagger:edit": "swagger_swagger_fileName=./sn-express/api/swagger/swagger.yaml swagger project edit",
     "text-server": "nodemon --exec babel-node ./http-servers/plain-text-server.js",
     "server": "nodemon --exec babel-node ./express/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -34,7 +36,9 @@
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.18.6"
+    "nodemon": "^1.18.6",
+    "should": "^13.2.3",
+    "supertest": "^4.0.0"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -62,6 +66,7 @@
     "sequelize": "^4.42.0",
     "sequelize-fixtures": "^0.9.0",
     "stream-concat": "^0.3.0",
+    "swagger-express-mw": "^0.7.0",
     "through2": "^3.0.0"
   }
 }

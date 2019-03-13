@@ -1,0 +1,379 @@
+swagger: "2.0"
+info:
+  description: Code samples and CRUD operations for Node mentoring program
+  version: 1.0.0
+  title: Node-mentoring
+host: localhost
+basePath: /
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /cities:
+    get:
+      description: Returns all cities from the DB
+      x-swagger-router-controller: cities
+      operationId: getAllCities
+      responses:
+        200:
+          description: A list of cities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+        404:
+          description: 'Not found.'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      description: Add a new city to the collection
+      x-swagger-router-controller: cities
+      operationId: createNewCity
+      parameters:
+        - in: body
+          name: city
+          required: true
+          schema:
+            $ref: '#/definitions/City'
+      responses:
+        201:
+          description: City created successfully
+          schema:
+            $ref: '#/definitions/City'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /cities/{id}:
+    get:
+      description: Returns a single city by its id
+      x-swagger-router-controller: cities
+      operationId: getCity
+      parameters:
+        - in: path
+          name: id
+          description: The city's id
+          required: true
+          type: string
+          format: ObjectId
+      responses:
+        200:
+          description: A City
+          schema:
+            $ref: '#/definitions/City'
+        404:
+          description: The City does not exists.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      description: Update a single city by its id or create a new one if doesn't exist
+      x-swagger-router-controller: cities
+      operationId: updateCity
+      parameters:
+        - in: path
+          name: id
+          description: The city's id
+          required: true
+          type: string
+          format: ObjectId
+        - in: body
+          name: city
+          description: the new City object
+          required: true
+          schema:
+            $ref: '#/definitions/City'
+      responses:
+        200:
+          description: City updated successfully
+          schema:
+            $ref: '#/definitions/City'
+        201:
+          description: City created successfully
+          schema:
+            $ref: '#/definitions/City'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      description: Delete a single city by its id
+      x-swagger-router-controller: cities
+      operationId: deleteCity
+      parameters:
+        - in: path
+          name: id
+          description: The city's id
+          required: true
+          type: string
+          format: ObjectId
+      responses:
+        200:
+          description: Deleted city
+          schema:
+            $ref: '#/definitions/City'
+        404:
+          description: The city does not exists.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /products:
+    get:
+      description: Returns all products from the DB
+      x-swagger-router-controller: products
+      operationId: getAllProducts
+      responses:
+        200:
+          description: A list of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      description: Add a new product to the collection
+      x-swagger-router-controller: products
+      operationId: createNewProduct
+      parameters:
+        - in: body
+          name: product
+          description: the new Product object
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        201:
+          description: Product created successfully
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /products/{id}:
+    get:
+      description: Returns a single product by its id
+      x-swagger-router-controller: products
+      operationId: getProduct
+      parameters:
+        - in: path
+          name: id
+          description: The product's id
+          required: true
+          type: string
+          format: ObjectId
+      responses:
+        200:
+          description: A Product
+          schema:
+            $ref: '#/definitions/Product'
+        404:
+          description: The Product does not exists.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      description: Update a single product by its id or create a new one if doesn't exist
+      x-swagger-router-controller: products
+      operationId: updateProduct
+      parameters:
+        - in: path
+          name: id
+          description: The product's id
+          required: true
+          type: string
+          format: ObjectId
+        - in: body
+          name: product
+          description: the new Product object
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        200:
+          description: Product updated successfully
+          schema:
+            $ref: '#/definitions/Product'
+        201:
+          description: Product created successfully
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      description: Delete a single product by its id
+      x-swagger-router-controller: products
+      operationId: deleteProduct
+      parameters:
+        - in: path
+          name: id
+          description: The product's id
+          required: true
+          type: string
+          format: ObjectId
+      responses:
+        200:
+          description: Deleted product
+          schema:
+            $ref: '#/definitions/Product'
+        404:
+          description: The product does not exists.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /users:
+    get:
+      description: Returns all users from the DB
+      x-swagger-router-controller: users
+      operationId: getAllUsers
+      responses:
+        200:
+          description: A list of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /users/{id}:
+    get:
+      description: Returns a single user by its id
+      x-swagger-router-controller: users
+      operationId: getUser
+      parameters:
+        - in: path
+          name: id
+          description: The users's id
+          required: true
+          type: string
+          format: ObjectId
+      responses:
+        200:
+          description: A User
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: The User does not exists.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      description: Delete a single user by its id
+      x-swagger-router-controller: users
+      operationId: deleteUser
+      parameters:
+        - in: path
+          name: id
+          description: The user's id
+          required: true
+          type: string
+          format: ObjectId
+      responses:
+        200:
+          description: Deleted user
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: The user does not exists.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /swagger:
+    x-swagger-pipe: swagger_raw
+definitions:
+  City:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the City.
+      country:
+        type: string
+        description: Name of the Country.
+      capital:
+        type: boolean
+        description: If this city capital or not.
+      location:
+        $ref: '#/definitions/City_location'
+  Product:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Product name.
+      brand:
+        type: string
+        description: Brand name.
+      price:
+        type: number
+        description: Product price.
+      color:
+        type: string
+        description: Product color.
+      size:
+        type: string
+        description: Product name.
+  User:
+    type: object
+    properties:
+      _id:
+        type: string
+        format: ObjectId
+        description: Unique identifier representing a specific Product.
+      username:
+        type: string
+        description: User name.
+      password:
+        type: string
+        description: User password.
+      firstName:
+        type: string
+        description: User first name.
+      lastname:
+        type: string
+        description: User last name.
+      phone:
+        type: string
+        description: User phone.
+      email:
+        type: string
+        description: User email.
+      memberSince:
+        type: string
+        description: User membership.
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  City_location:
+    properties:
+      lat:
+        type: string
+        description: lat coordinates.
+      long:
+        type: string
+        description: long coordinates.
+    description: Coordinates.
+
+
